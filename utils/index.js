@@ -19,10 +19,7 @@ exports.formatComment = (commentData, articleDocs, usersDocs)=>{
             return user.username === comment.created_by;
         })
 
-        // console.log(comment.belongs_to);
-
         let articleRelation = articleDocs.find(article => {
-            // console.log(article);
             return article.title === comment.belongs_to;
         })
 

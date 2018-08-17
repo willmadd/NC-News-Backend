@@ -1,4 +1,4 @@
-const {Topic } = require("../../models");
+const { Topic } = require("../../models");
 
 
 exports.checkTopicandCreateIfNonExists = (topicName) => {

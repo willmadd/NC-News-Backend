@@ -185,95 +185,163 @@ describe("/api", () => {
     });
 
     it("GET returns an error when passed an invalid id", () => {
-        return request
-          .get(`/api/articles/xyz`)
-          .expect(404)
-          .then(res => {
-            expect(res.body.message).to.equal('Cast to ObjectId failed for value "xyz" at path "_id" for model "articles"');
-          });
-      });
+      return request
+        .get(`/api/articles/xyz`)
+        .expect(404)
+        .then(res => {
+          expect(res.body.message).to.equal(
+            'Cast to ObjectId failed for value "xyz" at path "_id" for model "articles"'
+          );
+        });
+    });
 
     it("GET article comments", () => {
-        return request
-          .get(`/api/articles/${articleDocs[0]._id}`)
-          .expect(200)
-          .then(res => {
-            expect(res.body.articleData[0].votes).to.equal(0);
-            expect(res.body.articleData[0].title).to.equal(
-              "Living in the shadow of a great man"
-            );
-            expect(res.body.articleData[0].body).to.equal(
-              "I find this existence challenging"
-            );
-            expect(res.body.articleData[0].belongs_to).to.equal("mitch");
-          });
-      });
-      it("GET returns an error when passed an id that does not exist", () => {
-        return request
-          .get(`/api/articles/${wrongId}/comments`)
-          .expect(400)
-          .then(res => {
-            expect(res.body.message).to.equal("No article exists with this ID");
-          });
-      });
-  
-      it("GET returns an error when passed an invalid id", () => {
-          return request
-            .get(`/api/articles/xyz/comments`)
-            .expect(404)
-            .then(res => {
-              expect(res.body.message).to.equal('Cast to ObjectId failed for value "xyz" at path "belongs_to" for model "comments"');
-            });
+      return request
+        .get(`/api/articles/${articleDocs[0]._id}`)
+        .expect(200)
+        .then(res => {
+          expect(res.body.articleData[0].votes).to.equal(0);
+          expect(res.body.articleData[0].title).to.equal(
+            "Living in the shadow of a great man"
+          );
+          expect(res.body.articleData[0].body).to.equal(
+            "I find this existence challenging"
+          );
+          expect(res.body.articleData[0].belongs_to).to.equal("mitch");
         });
-        it("POST comment to article posts a comment and returns the comment", () => {
-            const newComment = {
-              created_by: `${userDocs[0]._id}`,
-              body: "This is a test comment"
-            };
-            return request
-              .post(`/api/articles/${articleDocs[0]._id}/comments`)
-              .send(newComment)
-              .expect(201)
-              .then(res => {
-                expect(res.body.comment).to.have.all.keys(
-                  "votes",
-                  "belongs_to",
-                  "created_at",
-                  "created_by",
-                  "__v",
-                  "_id",
-                  "body"
-                );
-              });
-          });
-          it("POST comment returns an error when passed invalid articleId", () => {
-            const newComment = {
-              created_by: `${userDocs[0]._id}`,
-              body: "This is a test comment"
-            };
-            return request
-              .post(`/api/articles/xyz/comments`)
-              .send(newComment)
-              .expect(404)
-              .then(res => {
-                expect(res.body.message).to.equal('comments validation failed: belongs_to: Cast to ObjectID failed for value "xyz" at path "belongs_to"');
-              });
-          });
-          it("POST comment returns an error when passed non existent articleId", () => {
-            const newComment = {
-              created_by: `${userDocs[0]._id}`,
-              body: "This is a test comment"
-            };
-            return request
-              .post(`/api/articles/${wrongId}/comments`)
-              .send(newComment)
-              .expect(404)
-              .then(res => {
-                expect(res.body.message).to.equal('comments validation failed: belongs_to: Cast to ObjectID failed for value "xyz" at path "belongs_to"');
-              });
-          });
-        
+    });
+    it("GET returns an error when passed an id that does not exist", () => {
+      return request
+        .get(`/api/articles/${wrongId}/comments`)
+        .expect(400)
+        .then(res => {
+          expect(res.body.message).to.equal("No article exists with this ID");
+        });
+    });
 
+    it("GET returns an error when passed an invalid id", () => {
+      return request
+        .get(`/api/articles/xyz/comments`)
+        .expect(404)
+        .then(res => {
+          expect(res.body.message).to.equal(
+            'Cast to ObjectId failed for value "xyz" at path "belongs_to" for model "comments"'
+          );
+        });
+    });
+    it("POST comment to article posts a comment and returns the comment", () => {
+      const newComment = {
+        created_by: `${userDocs[0]._id}`,
+        body: "This is a test comment"
+      };
+      return request
+        .post(`/api/articles/${articleDocs[0]._id}/comments`)
+        .send(newComment)
+        .expect(201)
+        .then(res => {
+          expect(res.body.comment).to.have.all.keys(
+            "votes",
+            "belongs_to",
+            "created_at",
+            "created_by",
+            "__v",
+            "_id",
+            "body"
+          );
+        });
+    });
+    it("POST comment returns an error when passed invalid articleId", () => {
+      const newComment = {
+        created_by: `${userDocs[0]._id}`,
+        body: "This is a test comment"
+      };
+      return request
+        .post(`/api/articles/xyz/comments`)
+        .send(newComment)
+        .expect(400)
+        .then(res => {
+          expect(res.body.message).to.equal(
+            'invalid format for Object Id'
+          );
+        });
+    });
+    it("POST comment returns an error when passed non existent articleId", () => {
+      const newComment = {
+        created_by: `${userDocs[0]._id}`,
+        body: "This is a test comment"
+      };
+      return request
+        .post(`/api/articles/${wrongId}/comments`)
+        .send(newComment)
+        .expect(404)
+        .then(res => {
+          expect(res.body.message).to.equal(
+            'article not found'
+          );
+        });
+    });
+
+    it("vote up increases the vote count on an article", ()=>{
+        return request
+        .put(`/api/articles/${articleDocs[0]._id}?vote=up`)
+        .expect(201)
+        .then(res => {
+            expect(res.body.article.votes).to.equal(articleDocs[0].votes + 1)
+
+        })
+    })
+    it("vote down decreases the vote count on an article", ()=>{
+        return request
+        .put(`/api/articles/${articleDocs[0]._id}?vote=down`)
+        .expect(201)
+        .then(res => {
+            expect(res.body.article.votes).to.equal(articleDocs[0].votes -1)
+
+        })
+    })
+
+
+
+  });
+  describe("api/comments", () => {
+    it("delete a comment returns status and confirmation", () => {
+      return request
+        .delete(`/api/comments/${commentDocs[0]._id}`)
+        .expect(201)
+        .then(res => {
+          expect(res.body.message).to.equal("Comment Deleted");
+        });
+    });
+    it("delete a comment returns the deleted comment and removes it from the database", () => {
+        return request
+          .delete(`/api/comments/${commentDocs[0]._id}`)
+          .expect(201)
+          .then(res => {
+
+            expect(res.body.deletedComment._id).to.equal(`${commentDocs[0]._id}`);
+            expect(res.body.deletedComment.body).to.equal(`${commentDocs[0].body}`);
+          });
+      });
+    
+      it("vote up increases the vote count on an comment", ()=>{
+        return request
+        .put(`/api/comments/${commentDocs[0]._id}?vote=up`)
+        .expect(201)
+        .then(res => {
+            expect(res.body.comment.votes).to.equal(commentDocs[0].votes + 1)
+
+        })
+    })
+    it("vote down decreases the vote count on an comment", ()=>{
+        return request
+        .put(`/api/comments/${commentDocs[0]._id}?vote=down`)
+        .expect(201)
+        .then(res => {
+
+            expect(res.body.comment.votes).to.equal(commentDocs[0].votes -1)
+
+        })
+    })
 
   });
 });
