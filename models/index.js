@@ -1,6 +1,8 @@
-module.exports = {
+let models = {
   User: require('./User'),
   Article: require('./Article'),
   Comment: require('./Comment'),
-  Topic: require('./Topic')
+  Topic: require('./topic')
 };
+
+module.exports = models;
