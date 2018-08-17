@@ -1,7 +1,4 @@
 const { Article, Comment } = require("../models");
-const _ = require("lodash");
-const mongoose = require("mongoose");
-const convertIdToTitle = require("./utils");
 
 exports.getArticle = (req, res, next) => {
   return Article.find()

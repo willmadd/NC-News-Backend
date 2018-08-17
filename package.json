@@ -5,15 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha spec --exit",
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "production": "NODE_ENV=production node ./seed/run.seed.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.16.3",
-    "lodash": "^4.17.10",
+    "heroku": "^7.7.10",
     "mongoose": "^5.2.8"
   },
   "devDependencies": {

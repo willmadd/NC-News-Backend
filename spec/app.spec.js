@@ -125,8 +125,8 @@ describe("/api", () => {
         .get("/api/articles")
         .expect(200)
         .then(res => {
-          expect(res.body.articleData.length).to.equal(4);
-          expect(Array.isArray(res.body.articleData)).to.be.true;
+          expect(res.body.articlesWithCommentCount.length).to.equal(4);
+          expect(Array.isArray(res.body.articlesWithCommentCount)).to.be.true;
         });
     });
     it("GET returns the articles object populated with correct keys", () => {
@@ -134,14 +134,16 @@ describe("/api", () => {
         .get("/api/articles")
         .expect(200)
         .then(res => {
-          expect(res.body.articleData[0]).to.contain.keys(
+            // console.log(res.body)
+          expect(res.body.articlesWithCommentCount[0]).to.contain.keys(
             "votes",
             "_id",
             "title",
             "body",
             "created_by",
             "belongs_to",
-            "__v"
+            "__v",
+            "votes"
           );
         });
     });
@@ -150,14 +152,14 @@ describe("/api", () => {
         .get("/api/articles")
         .expect(200)
         .then(res => {
-          expect(res.body.articleData[0].votes).to.equal(0);
-          expect(res.body.articleData[0].title).to.equal(
+          expect(res.body.articlesWithCommentCount[0].votes).to.equal(0);
+          expect(res.body.articlesWithCommentCount[0].title).to.equal(
             "Living in the shadow of a great man"
           );
-          expect(res.body.articleData[0].body).to.equal(
+          expect(res.body.articlesWithCommentCount[0].body).to.equal(
             "I find this existence challenging"
           );
-          expect(res.body.articleData[0].belongs_to).to.equal("mitch");
+          expect(res.body.articlesWithCommentCount[0].belongs_to).to.equal("mitch");
         });
     });
     it("GET article with article id returns an article", () => {
