@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha spec --exit",
-    "start": "node app.js",
+    "start": "node listen.js",
     "dev": "nodemon app.js",
     "production": "NODE_ENV=production node ./seed/run.seed.js"
   },
