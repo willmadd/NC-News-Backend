@@ -2,6 +2,7 @@ const { Article, Comment } = require("../models");
 
 exports.getArticle = (req, res, next) => {
   return Article.find()
+    .populate("created_by")
     .lean()
     .then(articleData => {
       let commentPromises = articleData.map((article, index) => {

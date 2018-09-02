@@ -13,6 +13,7 @@ mongoose.connect(DB_URL, { useNewUrlParser: true })
 app.use(bodyParser.json());
 
 app.use('/api', apiRouter)
+app.use('/', express.static('public/'));
 
 app.use((err, req, res, next) => {
   if (err.status === 404) {

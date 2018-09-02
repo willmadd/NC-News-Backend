@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha spec --exit",
     "start": "node listen.js",
-    "dev": "nodemon app.js",
+    "dev": "nodemon listen.js",
     "production": "NODE_ENV=production node ./seed/run.seed.js"
   },
   "author": "",
