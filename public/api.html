@@ -6,23 +6,63 @@
     <title>API documentaion</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link href="https://fonts.googleapis.com/css?family=Milonga|Snippet" rel="stylesheet">
+
+
+<!-- font-family: 'Milonga', cursive; -->
     <script src="main.js"></script>
 </head>
 <body>
+
+
+    <div class="container">
     <h1>NorthCoders News - API Documentation</h1>
 
-<h3>localhost:9090/api/topics/mitch/articles</h3>
-   <h4>{
-    "title":"sfdgsdg",
-    "body": "test article"
-    }</h4> 
+    <h2>Static Pages</h2>
+    
+    <h3>North Coders News Home Page</h3>
+    <a href="/"><p>https://evening-cliffs-44997.herokuapp.com/</p></a>
+<h3>Northcoders News API instructions</h3>
+<a href="/api"><p>https://evening-cliffs-44997.herokuapp.com/api</p></a>
+    
+
+    <h2>End Points</h2>
+    <h3> GET /api/topics</h3>
+<p>Brings back a list of all available topics on Northcoders News</p>
+
+<h3>GET /api/topics/:topic_slug/articles</h3>
+<p>Return all the articles in a topic e.g: `/api/topics/coding/articles`</p>
+
+<h3>POST /api/topics/:topic_slug/articles</h3>
+<p>Posts a new article to the specified topic! This should be a JSON object in the following format <br/>{<br/> title: "Title Goes here", <br/>body: "Article Content goes here"<br/>}</p>
+
+<h3>GET /api/articles</h3>
+<p>Brings back all the articles</p>
+
+<h3>GET /api/articles/:article_id</h3>
+<p>Returns an article when given an id e.g./api/articles/ehjk123kjwdsa</p>
+
+<h3>GET /api/articles/:article_id/comments</h3>
+<p>Returns all the comments associated with an article</p>
 
 
+<h3>    POST /api/articles/:article_id/comments
+    </h3>
+<p>Adds a new comment to an article, this should be in the format <br/>{<br/>"body": "This is my new comment",<br/> "created_by": user_id<br/>}</p>
 
-    <h3>post a comment to localhost:9090/api/articles/5b7452803ed1203b517939fc/comments</h3>
-    <h4>{
-        "body":"hello, i'm commenting on an article",
-        "created_by": "5b74527f3ed1203b517939f7"
-        }</h4>
+<h3>PUT /api/articles/:article_id</h3>
+<p>This increases or decreases the vote count of an article by 1. It should be used with the parameters vote=up or vote=down e.g. /api/articles/8asdf98hjsdfk?vote=up</p>
+
+<h3>PUT /api/comments/:comment_id</h3>
+<p>This increases or decreases the vote count of an article by 1. It should be used with the parameters vote=up or vote=down e.g. /api/comments/9dasjk8dasd9d?vote=down</p>
+
+<h3>DELETE /api/comments/:comment_id</h3>
+<p>Deletes a comment by it's ID e.g. /api/comments/sadf9asdf90f</p>
+
+<h3>GET /api/users/:username</h3>
+<p>Returns all the info about a specified user!</p>
+
+</div>
+
 </body>
 </html>
