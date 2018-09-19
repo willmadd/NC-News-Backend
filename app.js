@@ -4,29 +4,18 @@ const bodyParser = require ('body-parser');
 const apiRouter = require('./routes/api');
 const {DB_URL} = require('./config');
 const mongoose = require('mongoose');
+const allowDataBase = require('./utils')
 
 mongoose.connect(DB_URL, { useNewUrlParser: true })
   .then(() => {
     console.log('connected to DB')
   })
-  app.use(function(req, res, next){
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-  
-    // intercept OPTIONS method
-    if ('OPTIONS' == req.method) {
-      res.send(200);
-    }
-    else {
-      next();
-    }
+  app.use(allowDataBase);
 
 app.use(bodyParser.json());
 
 app.use('/api', apiRouter)
 app.use('/', express.static('public/'));
-});
 
 app.use((err, req, res, next) => {
   if (err.status === 404) {
