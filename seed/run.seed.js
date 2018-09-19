@@ -4,16 +4,24 @@ const {DB_URL} = require('../config');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
-const {articleData, commentData, topicData, usersData} = require(`./${process.env.NODE_ENV}-data`);
+const enviro;
+
+if (process.env.NODE_ENV === 'test'){
+  enviro = "test-data"
+}else{
+  enviro = "dev-data"
+}
+
+const {articleData, commentData, topicData, usersData} = require(`./${enviro}`);
 
 
 mongoose.connect(DB_URL, { useNewUrlParser: true })
   .then(() => {
     return seedDB(articleData, commentData, topicData, usersData);
   })
-  .then(()=>{
+  .then(() => {
     return mongoose.disconnect();
   })
-  .then(()=>{
+  .then(() => {
     console.log(`disconnected from ${DB_URL}`);
   })

@@ -25,21 +25,21 @@ exports.getArticle = (req, res, next) => {
 exports.getArticleById = (req, res, next) => {
   let articleId = req.params.article_id;
 
-  return Article.find({ _id: articleId })
+  return Article.findOne({ _id: articleId })
+  .populate("created_by")
     .then(articleData => {
-      if (articleData.length === 0) {
-        res.status(400).send({ message: "No article exists with this ID" });
-      } else {
         res.status(200).send({ articleData });
-      }
     })
     .catch(err => {
+      // console.log(err)
       res.status(404).send({ message: err.message });
     });
 };
 
 exports.getCommentsByArticleId = (req, res, next) => {
   return Comment.find({ belongs_to: req.params.article_id })
+  .populate("created_by")
+  .populate("belongs_to")
     .then(commentData => {
       if (commentData.length === 0) {
         res.status(400).send({ message: "No article exists with this ID" });

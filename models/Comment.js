@@ -22,7 +22,7 @@ const CommentSchema = new Schema({
   created_by: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'users',
-    // required: true
+    required: true //if it breaks look at this
   }
 });
 

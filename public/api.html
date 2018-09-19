@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <link href="https://fonts.googleapis.com/css?family=Milonga|Snippet" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
 
 
 <!-- font-family: 'Milonga', cursive; -->
@@ -27,39 +28,39 @@
     
 
     <h2>End Points</h2>
-    <h3> GET /api/topics</h3>
+    <code> GET /api/topics</code>
 <p>Brings back a list of all available topics on Northcoders News</p>
 
-<h3>GET /api/topics/:topic_slug/articles</h3>
-<p>Return all the articles in a topic e.g: `/api/topics/coding/articles`</p>
+<code>GET /api/topics/:topic_slug/articles</code>
+<p>Return all the articles in a topic e.g: <code>`/api/topics/coding/articles`</code></p>
 
-<h3>POST /api/topics/:topic_slug/articles</h3>
-<p>Posts a new article to the specified topic! This should be a JSON object in the following format <br/>{<br/> title: "Title Goes here", <br/>body: "Article Content goes here"<br/>}</p>
+<code>POST /api/topics/:topic_slug/articles</code>
+<p>Posts a new article to the specified topic! This should be a JSON object in the following format <br/><code>{<br/> &emsp;title: "Title Goes here", <br/>&emsp;body: "Article Content goes here"<br/>}</code></p>
 
-<h3>GET /api/articles</h3>
+<code>GET /api/articles</code>
 <p>Brings back all the articles</p>
 
-<h3>GET /api/articles/:article_id</h3>
-<p>Returns an article when given an id e.g./api/articles/ehjk123kjwdsa</p>
+<code>GET /api/articles/:article_id</code>
+<p>Returns an article when given an id e.g. <code>/api/articles/ehjk123kjwdsa</code></p>
 
-<h3>GET /api/articles/:article_id/comments</h3>
+<code>GET /api/articles/:article_id/comments</code>
 <p>Returns all the comments associated with an article</p>
 
 
-<h3>    POST /api/articles/:article_id/comments
-    </h3>
-<p>Adds a new comment to an article, this should be in the format <br/>{<br/>"body": "This is my new comment",<br/> "created_by": user_id<br/>}</p>
+<code>    POST /api/articles/:article_id/comments
+    </code>
+<p>Adds a new comment to an article, this should be in the format <br/><code>{<br/>&emsp;"body": "This is my new comment",<br/> &emsp;"created_by": user_id<br/>}</code></p>
 
-<h3>PUT /api/articles/:article_id</h3>
-<p>This increases or decreases the vote count of an article by 1. It should be used with the parameters vote=up or vote=down e.g. /api/articles/8asdf98hjsdfk?vote=up</p>
+<code>PUT /api/articles/:article_id</code>
+<p>This increases or decreases the vote count of an article by 1. It should be used with the parameters vote=up or vote=down e.g. <code>/api/articles/8asdf98hjsdfk?vote=up</code></p>
 
-<h3>PUT /api/comments/:comment_id</h3>
-<p>This increases or decreases the vote count of an article by 1. It should be used with the parameters vote=up or vote=down e.g. /api/comments/9dasjk8dasd9d?vote=down</p>
+<code>PUT /api/comments/:comment_id</code>
+<p>This increases or decreases the vote count of an article by 1. It should be used with the parameters vote=up or vote=down e.g. <code>/api/comments/9dasjk8dasd9d?vote=down</code></p>
 
-<h3>DELETE /api/comments/:comment_id</h3>
-<p>Deletes a comment by it's ID e.g. /api/comments/sadf9asdf90f</p>
+<code>DELETE /api/comments/:comment_id</code>
+<p>Deletes a comment by it's ID e.g. <code>/api/comments/sadf9asdf90f</code></p>
 
-<h3>GET /api/users/:username</h3>
+<code>GET /api/users/:username</code>
 <p>Returns all the info about a specified user!</p>
 
 </div>

@@ -27,7 +27,6 @@ const seedDB = (articleData, commentData, topicData, usersData) => {
     })
     .catch(err => {
       console.log(err);
-      next(err);
     });
 };
 
