@@ -27,7 +27,10 @@ exports.getArticleById = (req, res, next) => {
 
   return Article.findOne({ _id: articleId })
   .populate("created_by")
+  .lean()
     .then(articleData => {
+
+
         res.status(200).send({ articleData });
     })
     .catch(err => {
@@ -85,8 +88,14 @@ exports.changeArticleVote = (req, res, next) => {
   } else if (req.query.vote === "down") params = { $inc: { votes: -1 } };
 
   Article.findOneAndUpdate({ _id: articleid }, params, { new: true })
-    .then(article => {
+  .populate("created_by")
+
+
+  
+  .then(article => {
+
       res.status(201).send({ article });
+    
     })
     .catch(err => {
       res.status(err.status).send({ message: err.message });
