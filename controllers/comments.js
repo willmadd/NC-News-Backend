@@ -18,10 +18,12 @@ exports.changeCommentVote = (req, res, next) => {
   
 
   exports.deleteCommentById = (req, res, next) => {
-
-      let commentid = req.params.comment_id;
-      Comment.findOneAndDelete({_id: commentid})
-        .then(comment =>{
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>')
+    
+    let commentid = req.params.comment_id;
+    Comment.findOneAndDelete({_id: commentid})
+    .then(comment =>{
+      console.log(comment);
 
             res.status(201).send({message: 'Comment Deleted', deletedComment: comment})
         })
