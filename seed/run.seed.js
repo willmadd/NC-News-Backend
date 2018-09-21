@@ -4,7 +4,7 @@ const {DB_URL} = require('../config');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
-const enviro;
+let enviro = "";
 
 if (process.env.NODE_ENV === 'test'){
   enviro = "test-data"
