@@ -10,6 +10,7 @@ exports.getTopics = (req, res, next) => {
 exports.getArticlesByTopic = (req, res, next) => {
   let topicName = req.params.topic_slug;
   return Article.find({ belongs_to: topicName })
+  .populate("created_by")
   .lean()
   .then(topicData => {
 
