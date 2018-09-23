@@ -41,6 +41,7 @@ exports.postArticlesByTopic = (req, res, next) => {
   let insertArticle = {
     title: req.body.title,
     body: req.body.body,
+    created_by: req.body.created_by,
     belongs_to: req.params.topic_slug
   };
 
