@@ -13,3 +13,19 @@ exports.getAllUsers = (req, res, next) => {
     res.status(200).send({ users });
   });
 };
+
+
+
+exports.createUser=(req,res,next) => {
+  let insertUser = {
+    name: req.body.name,
+    username: req.body.username,
+    avatar_url: req.body.avatar_url,
+  }
+console.log(insertUser)
+
+User.create(insertUser).then(user => {
+  res.status(201).send({ user });
+});
+
+}
