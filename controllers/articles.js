@@ -1,4 +1,4 @@
-const { Article, Comment } = require("../models");
+const { Article, Comment,User } = require("../models");
 
 exports.getArticle = (req, res, next) => {
   return Article.find()
@@ -69,9 +69,11 @@ exports.postCommentsByArticleId = (req, res, next) => {
           created_by: req.body.created_by
         };
         return Comment.create(insertComment)
-          .then(comment => {
-            res.status(201).send({ comment });
-          })
+        .then(comment => {
+
+          return User.populate(comment, {path: "created_by",model:'users'})
+            
+          }).then(comment => res.status(201).send({ comment }))
           .catch(err => {
             res.status(404).send({ message: err.message });
           });
