@@ -29,8 +29,6 @@ exports.getArticleById = (req, res, next) => {
   .populate("created_by")
   .lean()
     .then(articleData => {
-
-
         res.status(200).send({ articleData });
     })
     .catch(err => {
