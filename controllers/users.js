@@ -3,7 +3,11 @@ const { User } = require("../models");
 exports.getUser = (req, res, next) => {
   return User.findOne({ username: req.params.user })
   .then(userData => {
-    res.status(200).send({ userData });
+    if(userData===null){
+      res.status(400).send({ message: "No User with this username exists" });
+    }else{
+      res.status(200).send({ userData });
+    }
   })
   .catch(err=>{
     res.status(404).send({message: err.message})
