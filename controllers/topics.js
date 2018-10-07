@@ -1,4 +1,4 @@
-const { Article, Topic, Comment } = require("../models");
+const { Article, Topic, Comment, User } = require("../models");
 const  {checkTopicandCreateIfNonExists}  = require("./utils");
 
 exports.getTopics = (req, res, next) => {
@@ -48,7 +48,11 @@ exports.postArticlesByTopic = (req, res, next) => {
 
   checkTopicandCreateIfNonExists(insertArticle.belongs_to);
 
-  Article.create(insertArticle).then(article => {
+  Article.create(insertArticle)
+  .then(article => {
+    return User.populate(article, {path: "created_by",model:'users'})
+  })
+  .then(article => {
     res.status(201).send({ article });
   });
 };
