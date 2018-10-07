@@ -8,6 +8,7 @@ exports.changeCommentVote = (req, res, next) => {
     } else if (req.query.vote === "down") params = { $inc: { votes: -1 } };
   
     Comment.findOneAndUpdate({ _id: commentid }, params, { new: true })
+    .populate("created_by")
       .then(comment => {
         res.status(201).send({ comment });
       })
