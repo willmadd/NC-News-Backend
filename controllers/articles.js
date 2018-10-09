@@ -43,11 +43,11 @@ exports.getCommentsByArticleId = (req, res, next) => {
   .populate("belongs_to")
     .then(commentData => {
       if (commentData.length === 0) {
-        res.status(400).send({ message: "No article exists with this ID" });
-      } else {
-        res.status(200).send({ commentData });
+        commentData=[]
       }
-    })
+        res.status(200).send({ commentData });
+      } 
+    )
     .catch(err => {
       res.status(404).send({ message: err.message });
     });
